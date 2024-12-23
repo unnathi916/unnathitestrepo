@@ -7,8 +7,11 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json (if available)
 COPY package*.json ./
 
-# Clean npm cache and install dependencies
-RUN npm cache clean --force && npm install --verbose
+# Install npm with the latest version
+RUN npm install -g npm@latest
+
+# Clean npm cache and install dependencies with verbose output
+RUN npm cache clean --force && npm install --verbose --legacy-peer-deps
 
 # Copy the rest of the application code
 COPY . .
