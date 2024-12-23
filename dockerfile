@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install npm with the latest version
-RUN npm install -g npm@latest
+RUN npm install -g npm@latest --verbose
 
 # Clean npm cache and install dependencies with verbose output
 RUN npm cache clean --force && npm install --verbose --legacy-peer-deps
