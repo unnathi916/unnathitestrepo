@@ -1,23 +1,25 @@
-# Use an official Node.js image as a base
-FROM node:18
+# Use a stable Node.js image (LTS version)
+FROM node:lts
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available)
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install npm with the latest version
-RUN npm install -g npm@latest --verbose
+# Clear npm cache and install npm globally with verbose logging
+USER root  # Ensure we have root privileges for global npm installs
+RUN npm cache clean --force && npm install -g npm@latest --verbose
+USER node  # Optional: Switch back to non-root user if required
 
-# Clean npm cache and install dependencies with verbose output
-RUN npm cache clean --force && npm install --verbose --legacy-peer-deps
+# Install dependencies from package.json
+RUN npm install --verbose
 
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app will run on (default for Node.js apps is 3000)
+# Expose the app's port (default for Node.js apps is 3000)
 EXPOSE 3000
 
-# Run the application
+# Start the application
 CMD ["npm", "start"]
