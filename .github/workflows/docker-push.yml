@@ -29,6 +29,9 @@ jobs:
       - name: Build Docker image
         run: |
           docker build --no-cache -t ${{ secrets.DOCKER_USERNAME }}/my-image:$GITHUB_SHA .
+          docker run -it --entrypoint /bin/bash my-image  # Enter the container
+          npm install --verbose  # Run the install manually inside the container to get more detailed errors
+
       
       # Push the Docker image
       - name: Push Docker image
