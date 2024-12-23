@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Clean npm cache and install dependencies
+RUN npm install --registry=https://registry.npmjs.org
 RUN npm cache clean --force && npm install --verbose
 
 # Copy the rest of the application code
