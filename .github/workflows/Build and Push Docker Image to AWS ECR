@@ -37,6 +37,7 @@ jobs:
         docker tag my-app:${{ github.sha }} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-repo:latest
         docker tag my-app:${{ github.sha }} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-repo:${{ github.sha }}
 
+
     # Step 7: Push the Docker image to ECR
     - name: Push Docker image to ECR
       run: |
